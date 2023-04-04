@@ -6,21 +6,30 @@
 #define DSA_NODE_H
 
 
-class Node{
+class MatrixNode{
 private:
     int data;
-    Node* next;
+    MatrixNode* next;
     //additional needed data for row and cols
     int row;
     int col;
 
-    friend class SMLList;
+    friend class MatrixLinkedList;
 public:
-    Node();
+    MatrixNode();
     // Overloading
-    Node(int data);
-    Node(int data, Node* next);
-    ~Node();
+    MatrixNode(int row, int col, int data);
+    MatrixNode(int row, int col, int data, MatrixNode* next);
+    ~MatrixNode();
+
+    //getter and setter
+    int getData();
+    void setData(int data);
+    int getRow();
+    void setRow(int data);
+    int getCol();
+    void setCol(int data);
+
 };
 
 
