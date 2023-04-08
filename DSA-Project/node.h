@@ -8,11 +8,11 @@
 
 class MatrixNode{
 private:
-    int data;
-    MatrixNode* next;
-    //additional needed data for row and cols
     int row;
     int col;
+    int data;
+    MatrixNode* next;
+
 
     friend class MatrixLinkedList;
 public:
@@ -26,9 +26,9 @@ public:
     int getData();
     void setData(int data);
     int getRow();
-    void setRow(int data);
+    void setRow(int row);
     int getCol();
-    void setCol(int data);
+    void setCol(int col);
 
 };
 

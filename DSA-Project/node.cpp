@@ -32,9 +32,27 @@ MatrixNode::~MatrixNode(){
 
 //getter setter section, open to addition to things that are missing
 int MatrixNode::getData() {
-    return data;
+    return this->data;
 }
 
 void MatrixNode::setData(int data) {
-    data = data;
+    this->data = data;
+}
+
+//row set and get
+int MatrixNode::getRow() {
+    return this->row;
+}
+
+void MatrixNode::setRow(int num_row) {
+    this->row = num_row;
+}
+
+//row set and get
+int MatrixNode::getCol() {
+    return this->col;
+}
+
+void MatrixNode::setCol(int num_col) {
+    this->col = num_col;
 }

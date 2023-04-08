@@ -8,24 +8,30 @@
 #include <vector>
 
 
-class SMLList {
+class MatrixLinkedList {
 private:
-    Node* head;
+    MatrixNode* head;
+    int num_rows;
+    int num_cols;
     unsigned int size;
 
 public:
-    SMLList(); // this->head = nullptr;
-    SMLList(int data);
-    SMLList(std::vector<std::vector<int> > twoDemVector);
-    ~SMLList();
+    MatrixLinkedList(); // this->head = nullptr;
+    MatrixLinkedList(int num_rows, int num_cols, int row, int col, int data);
+    MatrixLinkedList(std::vector<std::vector<int> > two_dem_vector);
+    ~MatrixLinkedList();
 
-    void push_front(int data);
-    void push_back(int data);
-    void insert(int data, int idx); // For any `idx` > `size`, append the value
-    void remove(int data);
-    bool contains(int data);
-    int get_size();
-    std::string to_string();
+    //getter setter center
+    int getNumRows();
+    int getNumCols(std::vector<std::vector<int> > tempMatrix);
+
+    //returns next row with non-zero entry in col
+    int nextRowInCol(int col, int cur_row);
+
+    //returns next col with non-zero entry in row
+    int nextColInRow(int row, int cur_col);
+
+
 };
 
 
