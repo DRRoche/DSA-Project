@@ -2,7 +2,7 @@
 // Created by matt cordeiro on 4/2/23.
 //
 
-#include "SMLList.h"
+#include "MatrixLinkedList.h"
 #include <vector>
 
 //constructor
@@ -43,11 +43,11 @@ MatrixLinkedList::~MatrixLinkedList() {
 }
 
 int MatrixLinkedList::getNumRows() {
-    return num_rows;
+    return this->num_rows;
 }
 
-int MatrixLinkedList::getNumCols(std::vector<std::vector<int> > tempMatrix) {
-    return num_cols;
+int MatrixLinkedList::getNumCols() {
+    return this->num_cols;
 }
 
 int MatrixLinkedList::nextRowInCol(int col, int cur_row) {

@@ -2,6 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include "MatrixLinkedList.h"
 
 //following linked list lab slightly
 void ReadFile(std::string file_name, std::vector<std::vector<double>> * image_data);
@@ -117,7 +118,7 @@ void ReadFile(std::string file_name, std::vector<std::vector<int> > * image_data
         std::istringstream ss(str);
 
         // Create a double that will hold our extracted value from the string
-        double token;
+        int token;
 
         // While there are still numbers in this string, extract them as doubles
         while(ss >> token){
@@ -128,4 +129,14 @@ void ReadFile(std::string file_name, std::vector<std::vector<int> > * image_data
         // The line is empty, push our completed row into our 2D vector
         image_data->push_back(new_row);
     }
+}
+
+MatrixLinkedList MatrixMultiplier(MatrixLinkedList matrix_a, MatrixLinkedList matrix_b) {
+    MatrixLinkedList result;
+    if (matrix_a.getNumCols() == matrix_b.getNumRows()) {
+
+    }
+
+    return result;
+
 }

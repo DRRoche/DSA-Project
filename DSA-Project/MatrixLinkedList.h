@@ -4,7 +4,7 @@
 
 #ifndef DSA_SMLLIST_H
 #define DSA_SMLLIST_H
-#include "node.h"
+#include "MatrixNode.h"
 #include <vector>
 
 
@@ -23,7 +23,7 @@ public:
 
     //getter setter center
     int getNumRows();
-    int getNumCols(std::vector<std::vector<int> > tempMatrix);
+    int getNumCols();
 
     //returns next row with non-zero entry in col
     int nextRowInCol(int col, int cur_row);

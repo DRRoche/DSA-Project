@@ -2,7 +2,7 @@
 // Created by matt cordeiro on 4/2/23.
 //
 
-#include "node.h"
+#include "MatrixNode.h"
 // Default constructor
 MatrixNode::MatrixNode(){
     this->data = 0;
