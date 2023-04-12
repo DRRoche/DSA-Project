@@ -14,11 +14,11 @@ private:
     MatrixNode* head;
     int num_rows;
     int num_cols;
-    unsigned int size;
+    //unsigned int size;
 
 public:
     MatrixLinkedList(); // this->head = nullptr;
-    MatrixLinkedList(int num_rows, int num_cols, int row, int col, int data);
+    MatrixLinkedList(int num_rows, int num_cols);
     MatrixLinkedList(std::vector<std::vector<int> > two_dem_vector);
     ~MatrixLinkedList();
 

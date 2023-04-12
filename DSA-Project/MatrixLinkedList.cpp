@@ -7,17 +7,15 @@
 //constructor
 MatrixLinkedList::MatrixLinkedList() {
     this -> head = nullptr;
-    this -> size = 0;
     this->num_rows = 0;
     this->num_cols = 0;
 }
 
 //constructor with a single digit aka a 1x1 matrix
-MatrixLinkedList::MatrixLinkedList(int num_rows, int num_cols, int row, int col, int data) {
-    this -> size = 1;
-    this->num_rows = 1;
-    this->num_cols = 1;
-    this-> head = new MatrixNode(0,0,data);
+MatrixLinkedList::MatrixLinkedList(int num_rows, int num_cols) {
+    this->num_rows = num_rows;
+    this->num_cols = num_cols;
+    this-> head = nullptr;
 }
 
 //2D vector constructor to fill in the data, making our robust matrix
@@ -25,7 +23,7 @@ MatrixLinkedList::MatrixLinkedList(std::vector<std::vector<int> > v_matrix) {
     this->num_rows = v_matrix.size();
     this->num_cols = v_matrix[0].size();
     this -> head = nullptr;
-    //this -> size = two_dem_vector.size();
+
     MatrixNode *temp = head;
     for(int i = 0; i<v_matrix.size(); i++){
         
