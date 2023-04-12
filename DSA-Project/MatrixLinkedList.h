@@ -4,9 +4,10 @@
 
 #ifndef DSA_SMLLIST_H
 #define DSA_SMLLIST_H
-#include "node.h"
+#include "MatrixNode.h"
 #include <vector>
-
+#include <vector>
+#include <string>
 
 class MatrixLinkedList {
 private:
@@ -23,7 +24,10 @@ public:
 
     //getter setter center
     int getNumRows();
-    int getNumCols(std::vector<std::vector<int> > tempMatrix);
+    int getNumCols();
+
+    //
+    void push_back(int row, int col, int data);
 
     //returns next row with non-zero entry in col
     int nextRowInCol(int col, int cur_row);
@@ -31,7 +35,8 @@ public:
     //returns next col with non-zero entry in row
     int nextColInRow(int row, int cur_col);
 
-
+    //print matrix
+    std::string to_string();
 };
 
 
