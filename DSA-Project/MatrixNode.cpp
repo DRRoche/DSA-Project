@@ -14,8 +14,8 @@ MatrixNode::MatrixNode(){
 MatrixNode::MatrixNode(int row, int col, int data){
     this->data = data;
     this->next = nullptr;
-    this->row = row = 0;
-    this->col = col = 0;
+    this->row = row = row;
+    this->col = col = col;
 }
 
 //this may need a tweak but for right now it'll do

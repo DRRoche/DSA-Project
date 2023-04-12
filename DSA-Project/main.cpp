@@ -8,13 +8,15 @@ MatrixLinkedList* MatrixMultiplier(MatrixLinkedList* matrix_a, MatrixLinkedList*
 
 //following linked list lab slightly
 void ReadFile(std::string file_name, std::vector<std::vector<int>> * image_data);
+MatrixLinkedList* ReadFile(std::string file_name, MatrixLinkedList* matrix);
+void WriteFile(std::string file_name, MatrixLinkedList* matrix);
 
 int main(int argc, char* argv[]) {
     //load sparse matrices from files
-    if(argc < 3){
+    if(argc < 4){
         std::cout<<"You were missing files";
     }
-    else if(argc > 4){
+    else if(argc > 5){
         std::cout<<"Too many inputs";
     }
     else{
@@ -22,17 +24,34 @@ int main(int argc, char* argv[]) {
         std::string input2_fn = argv[2];
         std::string output_fn = argv[3];
         std::string choice = "-1";
-        
-        //Temporarily reads and stores matrix from file into 2D vector
-        std::vector<std::vector<int> >* matrix_a = new std::vector<std::vector<int> >;
-        std::vector<std::vector<int> >* matrix_b = new std::vector<std::vector<int> >;
-        ReadFile(input1_fn, matrix_a);
-        ReadFile(input2_fn, matrix_b);
-        
-        //Convert 2D vector into Matrix Linked List
-        MatrixLinkedList* ll_matrix_a = new MatrixLinkedList(*matrix_a);
-        MatrixLinkedList* ll_matrix_b = new MatrixLinkedList(*matrix_b);
+        int mode = std::stoi(argv[4]);
+
+        MatrixLinkedList* ll_matrix_a = new MatrixLinkedList();
+        MatrixLinkedList* ll_matrix_b = new MatrixLinkedList();
         MatrixLinkedList* result = new MatrixLinkedList();
+        
+        if (mode == 1) {
+            //Temporarily reads and stores matrix from file into 2D vector
+            std::vector<std::vector<int> >* matrix_a = new std::vector<std::vector<int> >;
+            std::vector<std::vector<int> >* matrix_b = new std::vector<std::vector<int> >;
+            ReadFile(input1_fn, matrix_a);
+            ReadFile(input2_fn, matrix_b);
+
+            //Convert 2D vector into Matrix Linked List
+            ll_matrix_a = new MatrixLinkedList(*matrix_a);
+            ll_matrix_b = new MatrixLinkedList(*matrix_b);
+
+            /** /
+            //save to LL data file
+            WriteFile("ll_" + input1_fn, ll_matrix_a);
+            WriteFile("ll_" + input2_fn, ll_matrix_b);
+            //*/
+        }
+        if (mode == 2) {
+            ll_matrix_a = ReadFile(input1_fn, ll_matrix_a);
+            ll_matrix_b = ReadFile(input2_fn, ll_matrix_b);
+
+        }
 
         bool run = true;
         while(run) {
@@ -86,7 +105,7 @@ int main(int argc, char* argv[]) {
 
                     //Will multiply the matrices
                     if (choice == "1") { 
-                        result = MatrixMultiplier(ll_matrix_a, ll_matrix_b, result); 
+                        result = MatrixMultiplier(ll_matrix_a, ll_matrix_b, result);                        
                     }
                     //Will add the matrices
                     else if (choice == "2") {}
@@ -105,6 +124,7 @@ int main(int argc, char* argv[]) {
                     if (choice == "y") {
                         run = false;
                         std::cout << "Saving output matrix to: " << output_fn << std::endl;
+                        WriteFile(output_fn, result);
                     }
                     else if (choice != "n") {
                         std::cout << "Wrong input: Try again" << std::endl;
@@ -114,12 +134,27 @@ int main(int argc, char* argv[]) {
 
             }
             else{std::cout<<"Invalid option: try again"<<std::endl;}
-
         }
         std::cout<<"Thank you for using our program";
     }
 
 
+}
+
+void WriteFile(std::string file_name, MatrixLinkedList* matrix) {
+    // Opens the file for writing
+    std::ofstream out_file(file_name);
+    
+    out_file << matrix->getNumRows() << " " << matrix->getNumCols() << "\n";
+
+    for (int r = 0; r < matrix->getNumRows(); r++) {
+        for (int c = 0; c < matrix->getNumCols(); c++) {           
+            if (matrix->nextColInRow(r, c) != 0 ) {
+                out_file << r << " " << c << " " << matrix->nextColInRow(r, c) << "\n";
+
+            }
+        }
+    }
 }
 
 void ReadFile(std::string file_name, std::vector<std::vector<int> > * image_data){
@@ -152,13 +187,48 @@ void ReadFile(std::string file_name, std::vector<std::vector<int> > * image_data
 
 }
 
+MatrixLinkedList* ReadFile(std::string file_name, MatrixLinkedList* matrix) {
+    int row, col, data;
+    // Opens the file for reading
+    std::ifstream file(file_name);
+
+    // Creates a string to hold each line in temporarily
+    std::string str;
+
+    std::getline(file, str);
+    std::istringstream ss(str);
+
+    ss >> row;
+    ss >> col;
+
+    matrix = new MatrixLinkedList(row, col);
+
+    // Iterates over the file, storing one line at a time into `str`
+    while (std::getline(file, str)) {
+
+        // Create a stringstream object with our line of integers from the file
+        std::istringstream ss(str);
+
+        //store node details in int variables
+        ss >> row;
+        ss >> col;
+        ss >> data;
+
+        //push node onto LinkedList
+        matrix->push_back(row, col, data);
+    }
+    return matrix;
+}
+
+
 MatrixLinkedList* MatrixMultiplier(MatrixLinkedList* matrix_a, MatrixLinkedList* matrix_b, MatrixLinkedList* result) {
 
-    std::vector<std::vector<int>> v_tmp;
+    //std::vector<std::vector<int>> v_tmp;
     int tmp;
     if (matrix_a->getNumCols() == matrix_b->getNumRows()) {
+        result = new MatrixLinkedList(matrix_a->getNumRows(), matrix_b->getNumCols());
         for (int r = 0; r < matrix_a->getNumRows(); r++) {
-            std::vector<int> v_row;
+            //std::vector<int> v_row;
             for (int c = 0; c < matrix_b->getNumCols(); c++) {
                 tmp = 0;
                 for (int k = 0; k < matrix_a->getNumCols(); k++) {
@@ -167,14 +237,10 @@ MatrixLinkedList* MatrixMultiplier(MatrixLinkedList* matrix_a, MatrixLinkedList*
 
                     }
                 }
-                //result->push_back(r, c, tmp);
-                v_row.push_back(tmp);
+                if(tmp != 0) result->push_back(r, c, tmp);
             }
-            v_tmp.push_back(v_row);
         }
     }
-    result = new MatrixLinkedList(v_tmp);
-    std::cout << result->to_string();
 
     return result;
 
