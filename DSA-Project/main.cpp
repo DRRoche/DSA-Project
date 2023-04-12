@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
     if(argc < 4){
         std::cout<<"You were missing files";
     }
-    else if(argc > 5){
+    else if(argc > 6){
         std::cout<<"Too many inputs";
     }
     else{
@@ -29,7 +29,7 @@ int main(int argc, char* argv[]) {
         MatrixLinkedList* ll_matrix_a = new MatrixLinkedList();
         MatrixLinkedList* ll_matrix_b = new MatrixLinkedList();
         MatrixLinkedList* result = new MatrixLinkedList();
-        
+
         if (mode == 1) {
             //Temporarily reads and stores matrix from file into 2D vector
             std::vector<std::vector<int> >* matrix_a = new std::vector<std::vector<int> >;
@@ -75,17 +75,25 @@ int main(int argc, char* argv[]) {
 
                     //Will Show the matrix from input1_fn
                     if (choice == "1") {
-                        std::cout << ll_matrix_a->to_string();
+                        std::cout << ll_matrix_a->to_string()<<std::endl;
                     }
-                    //will show the matrix from input2_fn
+                        //will show the matrix from input2_fn
                     else if (choice == "2") {
-                        std::cout << ll_matrix_b->to_string();
+                        std::cout << ll_matrix_b->to_string()<<std::endl;
                     }
-                    //will show both input1_fn and input2_fn matrices
-                    else if (choice == "3") {}
-                    //Will show the matrix that will be put into the output file
-                    else if (choice == "4") {}
-                    //input is not valid
+                        //will show both input1_fn and input2_fn matrices
+                    else if (choice == "3") {
+                        std::cout<<input1_fn + ": "<<std::endl;
+                        std::cout << ll_matrix_a->to_string();
+                        std::cout<<std::endl;
+                        std::cout<<input2_fn + ": "<<std::endl;
+                        std::cout << ll_matrix_b->to_string()<<std::endl;
+                    }
+                        //Will show the matrix that will be put into the output file
+                    else if (choice == "4") {
+                        std::cout << result->to_string();
+                    }
+                        //input is not valid
                     else if(choice != "5"){std::cout<<"Invalid input: try again"<<std::endl;}
                     else{
                         run =false;
@@ -93,7 +101,7 @@ int main(int argc, char* argv[]) {
                 }
                 run = true;
             }
-            //This choice will let the user either multiply or add the given matrices
+                //This choice will let the user either multiply or add the given matrices
             else if(choice == "2"){
                 choice = "0";
                 while(run) {
@@ -104,10 +112,10 @@ int main(int argc, char* argv[]) {
                     std::cin >> choice;
 
                     //Will multiply the matrices
-                    if (choice == "1") { 
-                        result = MatrixMultiplier(ll_matrix_a, ll_matrix_b, result);                        
+                    if (choice == "1") {
+                        result = MatrixMultiplier(ll_matrix_a, ll_matrix_b, result);
                     }
-                    //Will add the matrices
+                        //Will add the matrices
                     else if (choice == "2") {}
                     else if (choice != "3") {std::cout<<"Invalid option: try again"<<std::endl;}
                     else{
@@ -116,7 +124,7 @@ int main(int argc, char* argv[]) {
                 }
                 run = true;
             }
-            //This choice will let the user exit the program and save the output matrix if they like
+                //This choice will let the user exit the program and save the output matrix if they like
             else if(choice == "3"){
                 while(run) {
                     std::cout << "Do you want to save current output matrix: (y)es or (n)o?" << std::endl;
@@ -144,11 +152,11 @@ int main(int argc, char* argv[]) {
 void WriteFile(std::string file_name, MatrixLinkedList* matrix) {
     // Opens the file for writing
     std::ofstream out_file(file_name);
-    
+
     out_file << matrix->getNumRows() << " " << matrix->getNumCols() << "\n";
 
     for (int r = 0; r < matrix->getNumRows(); r++) {
-        for (int c = 0; c < matrix->getNumCols(); c++) {           
+        for (int c = 0; c < matrix->getNumCols(); c++) {
             if (matrix->nextColInRow(r, c) != 0 ) {
                 out_file << r << " " << c << " " << matrix->nextColInRow(r, c) << "\n";
 
