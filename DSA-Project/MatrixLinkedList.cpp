@@ -3,7 +3,6 @@
 //
 
 #include "MatrixLinkedList.h"
-#include <vector>
 
 //constructor
 MatrixLinkedList::MatrixLinkedList() {
@@ -22,17 +21,26 @@ MatrixLinkedList::MatrixLinkedList(int num_rows, int num_cols, int row, int col,
 }
 
 //2D vector constructor to fill in the data, making our robust matrix
-MatrixLinkedList::MatrixLinkedList(std::vector<std::vector<int> > two_dem_vector) {
-    this -> head = new MatrixNode(0,0, two_dem_vector[0][0]);
-    this -> size = two_dem_vector.size();
+MatrixLinkedList::MatrixLinkedList(std::vector<std::vector<int> > v_matrix) {
+    this->num_rows = v_matrix.size();
+    this->num_cols = v_matrix[0].size();
+    this -> head = nullptr;
+    //this -> size = two_dem_vector.size();
     MatrixNode *temp = head;
-    for(int i = 1; i<two_dem_vector.size(); i++){
-        num_rows++;
-        for(int j = 1; j<two_dem_vector.size(); j++){
-            num_cols++;
-            //MatrixNode wants data, so it will pull the elements at iteration
-            temp->next = new MatrixNode(i,j,two_dem_vector[i][j]);
-            temp=temp->next;
+    for(int i = 0; i<v_matrix.size(); i++){
+        
+        for(int j = 0; j<v_matrix[i].size(); j++){
+            if (v_matrix[i][j] != 0) {
+                if (head == nullptr) {
+                    head = new MatrixNode(i, j, v_matrix[i][j], nullptr);
+                    temp = head;
+                }
+                else {
+                    temp->next = new MatrixNode(i, j, v_matrix[i][j], nullptr);
+                    temp = temp->next;
+                }
+            }
+         
         }
     }
 }
@@ -50,30 +58,60 @@ int MatrixLinkedList::getNumCols() {
     return this->num_cols;
 }
 
-int MatrixLinkedList::nextRowInCol(int col, int cur_row) {
-    //given col and our current row
-    int next_row = cur_row;
-    //we want to create a variable to hold the next row based on the current and then increment
-    next_row++;
-    //if the next_row is greater or equal to some defining size, then we want to wrap around.
-    if(next_row >= num_rows){
-        //starts us back at the first index of the matrix.
-        next_row = 0;
+void MatrixLinkedList::push_back(int row, int col, int data)
+{
+    MatrixNode* temp = this->head;
+
+    if (head == nullptr) {
+        this->head = new MatrixNode(row, col, data);
     }
-    return next_row;
+    else {
+        while (temp->next != nullptr) temp = temp->next;
+        temp->next = new MatrixNode(row, col, data);
+    }
+
 }
 
-int MatrixLinkedList::nextColInRow(int row, int cur_col) {
-    //given row and our current column
-    int next_col = cur_col;
-    //we want to create a variable to hold the next column based on the current and then increment
-    next_col++;
-    //if the next_col is greater or equal to some defining size, then we want to wrap around.
-    if(next_col >= num_cols){
-        //starts us back at the first index of the matrix.
-        next_col = 0;
+int MatrixLinkedList::nextRowInCol(int col, int row) {
+    MatrixNode* temp = head;
+    int entry = 0;
+
+    while (temp->getRow() < row && temp->next != nullptr) temp = temp->next;
+    while (temp->getRow() == row  && temp->getCol() < col && temp->next != nullptr) temp = temp->next;
+
+    if (temp->getRow() == row && temp->getCol() == col) entry = temp->data;
+
+    return entry;
+}
+
+int MatrixLinkedList::nextColInRow(int row, int col) {
+    MatrixNode* temp = head;
+    int entry = 0;
+
+    while ((temp->getCol() < col || temp->getRow() < row) && temp->next != nullptr) temp = temp->next;    
+
+    if (temp->getRow() == row && temp->getCol() == col ) entry = temp->data;
+ 
+    return entry;
+}
+
+std::string MatrixLinkedList::to_string(){
+
+    MatrixNode* temp = head;
+    std::string str = "";
+
+    for (int i = 0; i < this->num_rows; i++) {
+        for (int j = 0; j < this->num_cols; j++) {
+            if (temp->getRow() == i && temp->getCol() == j) {
+                str += std::to_string(temp->data) + " ";
+                if (temp->next != nullptr) temp = temp->next;
+            }
+            else str += "0 ";
+        }
+        str += "\n";
     }
-    return next_col;
+
+    return str;
 }
 
 

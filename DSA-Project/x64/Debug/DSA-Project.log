@@ -1,5 +1,2 @@
-﻿  MatrixLinkedList.cpp
-C:\Users\drjac\source\repos\DSA-Project\DSA-Project\MatrixLinkedList.cpp(27,41): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
-  main.cpp
-  Generating Code...
+﻿  main.cpp
   DSA-Project.vcxproj -> C:\Users\drjac\source\repos\DSA-Project\x64\Debug\DSA-Project.exe

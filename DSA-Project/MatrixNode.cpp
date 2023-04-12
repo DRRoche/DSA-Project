@@ -27,7 +27,7 @@ MatrixNode::MatrixNode(int row, int col, int data, MatrixNode* next){
 }
 
 MatrixNode::~MatrixNode(){
-        delete this->next;
+        if(this->next != nullptr)delete this->next;
 }
 
 //getter setter section, open to addition to things that are missing
