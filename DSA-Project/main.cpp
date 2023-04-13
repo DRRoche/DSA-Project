@@ -5,6 +5,7 @@
 #include "MatrixLinkedList.h"
 
 MatrixLinkedList* MatrixMultiplier(MatrixLinkedList* matrix_a, MatrixLinkedList* matrix_b, MatrixLinkedList* result);
+MatrixLinkedList* MatrixAddition(MatrixLinkedList* matrix_a, MatrixLinkedList* matrix_b, MatrixLinkedList* result);
 
 //following linked list lab slightly
 void ReadFile(std::string file_name, std::vector<std::vector<int>> * image_data);
@@ -116,7 +117,9 @@ int main(int argc, char* argv[]) {
                         result = MatrixMultiplier(ll_matrix_a, ll_matrix_b, result);
                     }
                         //Will add the matrices
-                    else if (choice == "2") {}
+                    else if (choice == "2") {
+                        result = MatrixAddition(ll_matrix_a, ll_matrix_b, result);
+                    }
                     else if (choice != "3") {std::cout<<"Invalid option: try again"<<std::endl;}
                     else{
                         run = false;
@@ -165,6 +168,7 @@ void WriteFile(std::string file_name, MatrixLinkedList* matrix) {
     }
 }
 
+//Mode 1 readfile
 void ReadFile(std::string file_name, std::vector<std::vector<int> > * image_data){
     // Opens the file for reading
     std::ifstream file(file_name);
@@ -195,6 +199,7 @@ void ReadFile(std::string file_name, std::vector<std::vector<int> > * image_data
 
 }
 
+//Mode 2 readfile
 MatrixLinkedList* ReadFile(std::string file_name, MatrixLinkedList* matrix) {
     int row, col, data;
     // Opens the file for reading
@@ -245,11 +250,32 @@ MatrixLinkedList* MatrixMultiplier(MatrixLinkedList* matrix_a, MatrixLinkedList*
 
                     }
                 }
-                if(tmp != 0) result->push_back(r, c, tmp);
+                if (tmp != 0) result->push_back(r, c, tmp);
             }
         }
     }
+    else std::cout << "These matrices cannot be multiplied, columns in matrix A must equal rows in matrix B.\n";
 
     return result;
 
+}
+
+MatrixLinkedList* MatrixAddition(MatrixLinkedList* matrix_a, MatrixLinkedList* matrix_b, MatrixLinkedList* result) {
+    int entry_a;
+    int entry_b;
+    if (matrix_a->getNumCols() == matrix_b->getNumCols() && matrix_a->getNumCols() == matrix_b->getNumCols()) {
+        result = new MatrixLinkedList(matrix_a->getNumRows(), matrix_a->getNumCols());
+        for (int r = 0; r < matrix_a->getNumRows(); r++) {
+            for (int c = 0; c < matrix_a->getNumCols(); c++) {
+                entry_a = matrix_a->nextColInRow(r, c);
+                entry_b = matrix_b->nextColInRow(r, c);
+                if (entry_a != 0 || entry_b != 0) {
+                    result->push_back(r, c, (entry_a + entry_b));
+                }
+            }
+        }
+    }
+    else std::cout << "These matrices cannot be added, demensions of both matrices must match.\n";
+
+    return result;
 }
