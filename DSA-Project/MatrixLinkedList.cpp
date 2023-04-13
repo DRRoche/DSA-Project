@@ -2,6 +2,7 @@
 // Created by matt cordeiro on 4/2/23.
 //
 
+#include <iostream>
 #include "MatrixLinkedList.h"
 
 //constructor
@@ -26,7 +27,7 @@ MatrixLinkedList::MatrixLinkedList(std::vector<std::vector<int> > v_matrix) {
 
     MatrixNode *temp = head;
     for(int i = 0; i<v_matrix.size(); i++){
-        
+
         for(int j = 0; j<v_matrix[i].size(); j++){
             if (v_matrix[i][j] != 0) {
                 if (head == nullptr) {
@@ -38,7 +39,7 @@ MatrixLinkedList::MatrixLinkedList(std::vector<std::vector<int> > v_matrix) {
                     temp = temp->next;
                 }
             }
-         
+
         }
     }
 }
@@ -86,30 +87,32 @@ int MatrixLinkedList::nextColInRow(int row, int col) {
     MatrixNode* temp = head;
     int entry = 0;
 
-    while ((temp->getCol() < col || temp->getRow() < row) && temp->next != nullptr) temp = temp->next;    
+    while ((temp->getCol() < col || temp->getRow() < row) && temp->next != nullptr) temp = temp->next;
 
     if (temp->getRow() == row && temp->getCol() == col ) entry = temp->data;
- 
+
     return entry;
 }
 
 std::string MatrixLinkedList::to_string(){
-
     MatrixNode* temp = head;
     std::string str = "";
 
-    for (int i = 0; i < this->num_rows; i++) {
-        for (int j = 0; j < this->num_cols; j++) {
-            if (temp->getRow() == i && temp->getCol() == j) {
-                str += std::to_string(temp->data) + " ";
-                if (temp->next != nullptr) temp = temp->next;
+    if(head == nullptr){
+        str = "No matrix to print\n\n";
+    }
+    else {
+        for (int i = 0; i < this->num_rows; i++) {
+            for (int j = 0; j < this->num_cols; j++) {
+                if (temp->getRow() == i && temp->getCol() == j) {
+                    str += std::to_string(temp->data) + " ";
+                    if (temp->next != nullptr) temp = temp->next;
+                } else str += "0 ";
             }
-            else str += "0 ";
+            str += "\n";
         }
-        str += "\n";
     }
 
     return str;
 }
-
 
