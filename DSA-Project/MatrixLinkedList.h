@@ -14,7 +14,7 @@ private:
     MatrixNode* head;
     int num_rows;
     int num_cols;
-    //unsigned int size;
+    unsigned int size;
 
 public:
     MatrixLinkedList(); // this->head = nullptr;
@@ -25,6 +25,7 @@ public:
     //getter setter center
     int getNumRows();
     int getNumCols();
+    float getSparsity();
 
     //
     void push_back(int row, int col, int data);
@@ -34,6 +35,9 @@ public:
 
     //returns next col with non-zero entry in row
     int nextColInRow(int row, int cur_col);
+
+    //Test if the matrix is a sparse matrix of not
+    bool isSparse();
 
     //print matrix
     std::string to_string();
