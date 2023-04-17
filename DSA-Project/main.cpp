@@ -5,6 +5,7 @@
 #include "MatrixLinkedList.h"
 
 MatrixLinkedList* MatrixMultiplier(MatrixLinkedList* matrix_a, MatrixLinkedList* matrix_b, MatrixLinkedList* result);
+MatrixLinkedList* MatrixAddition(MatrixLinkedList* matrix_a, MatrixLinkedList* matrix_b, MatrixLinkedList* result);
 
 //following linked list lab slightly
 void ReadFile(std::string file_name, std::vector<std::vector<int>> * image_data);
@@ -116,7 +117,9 @@ int main(int argc, char* argv[]) {
                         result = MatrixMultiplier(ll_matrix_a, ll_matrix_b, result);
                     }
                         //Will add the matrices
-                    else if (choice == "2") {}
+                    else if (choice == "2") {
+                        result = MatrixAddition(ll_matrix_a, ll_matrix_b, result);
+                    }
                     else if (choice != "3") {std::cout<<"Invalid option: try again"<<std::endl;}
                     else{
                         run = false;
@@ -145,18 +148,20 @@ int main(int argc, char* argv[]) {
         }
         std::cout<<"Thank you for using our program";
     }
-
-
 }
 
 void WriteFile(std::string file_name, MatrixLinkedList* matrix) {
     // Opens the file for writing
     std::ofstream out_file(file_name);
 
+    //writes matrix demensions as first line of file
     out_file << matrix->getNumRows() << " " << matrix->getNumCols() << "\n";
 
+    //loops through matrix rows
     for (int r = 0; r < matrix->getNumRows(); r++) {
+        //loops through matrix columns
         for (int c = 0; c < matrix->getNumCols(); c++) {
+            //if non-zero entry write as new line in file
             if (matrix->nextColInRow(r, c) != 0 ) {
                 out_file << r << " " << c << " " << matrix->nextColInRow(r, c) << "\n";
 
@@ -165,6 +170,7 @@ void WriteFile(std::string file_name, MatrixLinkedList* matrix) {
     }
 }
 
+//Mode 1 readfile
 void ReadFile(std::string file_name, std::vector<std::vector<int> > * image_data){
     // Opens the file for reading
     std::ifstream file(file_name);
@@ -195,6 +201,7 @@ void ReadFile(std::string file_name, std::vector<std::vector<int> > * image_data
 
 }
 
+//Mode 2 readfile
 MatrixLinkedList* ReadFile(std::string file_name, MatrixLinkedList* matrix) {
     int row, col, data;
     // Opens the file for reading
@@ -206,9 +213,11 @@ MatrixLinkedList* ReadFile(std::string file_name, MatrixLinkedList* matrix) {
     std::getline(file, str);
     std::istringstream ss(str);
 
+    //loads matrix demensions from file
     ss >> row;
     ss >> col;
 
+    //initializes matrix with the correct demensions
     matrix = new MatrixLinkedList(row, col);
 
     // Iterates over the file, storing one line at a time into `str`
@@ -230,26 +239,64 @@ MatrixLinkedList* ReadFile(std::string file_name, MatrixLinkedList* matrix) {
 
 
 MatrixLinkedList* MatrixMultiplier(MatrixLinkedList* matrix_a, MatrixLinkedList* matrix_b, MatrixLinkedList* result) {
-
-    //std::vector<std::vector<int>> v_tmp;
+    //holds intermediate values
     int tmp;
+    //Checks if matrices are the correct demensions
     if (matrix_a->getNumCols() == matrix_b->getNumRows()) {
+        //initialize resulting matrix to the correct demensions.
         result = new MatrixLinkedList(matrix_a->getNumRows(), matrix_b->getNumCols());
-        for (int r = 0; r < matrix_a->getNumRows(); r++) {
-            //std::vector<int> v_row;
-            for (int c = 0; c < matrix_b->getNumCols(); c++) {
+        //loops through rows of result.
+        for (int r = 0; r < result->getNumRows(); r++) {
+            //loops through columns of result.
+            for (int c = 0; c < result->getNumCols(); c++) {
                 tmp = 0;
+                //Performs the multiplication operation on the entires of matrix A & B for the 
+                //the current row and column location in result matrix.
                 for (int k = 0; k < matrix_a->getNumCols(); k++) {
+                    //if both entries are non-zeros then they will be multiplied and added to the intermediate value, tmp.
                     if (matrix_a->nextColInRow(r, k) != 0 && matrix_b->nextRowInCol(c, k) != 0) {
                         tmp += matrix_a->nextColInRow(r, k) * matrix_b->nextRowInCol(c, k);
 
                     }
                 }
-                if(tmp != 0) result->push_back(r, c, tmp);
+                //once all of the operations are done for an entry into result, 
+                //if the intermediate value doesn't total to zero then it is pushed to result.
+                if (tmp != 0) result->push_back(r, c, tmp);
             }
         }
     }
+    //if the matrices don't meet the required demensions for multiplication then an error message is output to user
+    else std::cout << "These matrices cannot be multiplied, columns in matrix A must equal rows in matrix B.\n";
 
     return result;
 
+}
+
+MatrixLinkedList* MatrixAddition(MatrixLinkedList* matrix_a, MatrixLinkedList* matrix_b, MatrixLinkedList* result) {
+    //holds intermediate values
+    int entry_a;
+    int entry_b;
+    //Checks if matrices are the correct demensions
+    if (matrix_a->getNumCols() == matrix_b->getNumCols() && matrix_a->getNumCols() == matrix_b->getNumCols()) {
+        //initialize resulting matrix to the correct demensions.
+        result = new MatrixLinkedList(matrix_a->getNumRows(), matrix_a->getNumCols());
+        //loops through rows of result.
+        for (int r = 0; r < result->getNumRows(); r++) {
+            //loops through columns of result.
+            for (int c = 0; c < result->getNumCols(); c++) {
+                //stores entries of matrix A & B for comparison.
+                entry_a = matrix_a->nextColInRow(r, c);
+                entry_b = matrix_b->nextColInRow(r, c);
+                //as long as one entry has a non-zero entry and the sum of of both 
+                //doesn't equal zero, then add and push total onto result.
+                if ((entry_a != 0 || entry_b != 0) && (entry_a + entry_b != 0) ) {
+                    result->push_back(r, c, (entry_a + entry_b));
+                }
+            }
+        }
+    }
+    //if the matrices don't meet the required demensions for addition then an error message is output to user
+    else std::cout << "These matrices cannot be added, demensions of both matrices must match.\n";
+
+    return result;
 }
