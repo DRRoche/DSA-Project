@@ -10,12 +10,14 @@ MatrixLinkedList::MatrixLinkedList() {
     this -> head = nullptr;
     this->num_rows = 0;
     this->num_cols = 0;
+    this->size=0;
 }
 
 //constructor with a single digit aka a 1x1 matrix
 MatrixLinkedList::MatrixLinkedList(int num_rows, int num_cols) {
     this->num_rows = num_rows;
     this->num_cols = num_cols;
+    this->size = 0;
     this-> head = nullptr;
 }
 
@@ -23,6 +25,7 @@ MatrixLinkedList::MatrixLinkedList(int num_rows, int num_cols) {
 MatrixLinkedList::MatrixLinkedList(std::vector<std::vector<int> > v_matrix) {
     this->num_rows = v_matrix.size();
     this->num_cols = v_matrix[0].size();
+    this->size = 0;
     this -> head = nullptr;
 
     MatrixNode *temp = head;
@@ -30,6 +33,7 @@ MatrixLinkedList::MatrixLinkedList(std::vector<std::vector<int> > v_matrix) {
 
         for(int j = 0; j<v_matrix[i].size(); j++){
             if (v_matrix[i][j] != 0) {
+                this->size++;
                 if (head == nullptr) {
                     head = new MatrixNode(i, j, v_matrix[i][j], nullptr);
                     temp = head;
@@ -60,6 +64,7 @@ int MatrixLinkedList::getNumCols() {
 void MatrixLinkedList::push_back(int row, int col, int data)
 {
     MatrixNode* temp = this->head;
+    this->size++;
 
     if (head == nullptr) {
         this->head = new MatrixNode(row, col, data);
@@ -116,3 +121,21 @@ std::string MatrixLinkedList::to_string(){
     return str;
 }
 
+float MatrixLinkedList::getSparsity(){
+    if(this->head == nullptr){
+        return -1;
+    }
+    else {
+        float tot_values = this->num_rows * this->num_cols;
+        float tot_zeros = tot_values - this->size;
+        return tot_zeros / tot_values;
+    }
+}
+
+bool MatrixLinkedList::isSparse(){
+    bool result = false;
+    if(this->getSparsity()>=.5){
+        result = true;
+    }
+    return result;
+}
