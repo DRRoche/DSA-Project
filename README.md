@@ -10,9 +10,51 @@ printing the matrices given by the user to terminal, printing the output matrice
 If the user inputs too many or too few inputs the program will inform inform you of the error and will end the session.  
 
 ---
-### Psuedo-code
+### Planning  
+-Below is the psuedo code our group created prior to creating the program
 
 #### main.cpp
+- This file has menu options which the user will be able to input a value and
+ perform a various tasks or get information on the matrices. This file also
+ holds the the functions to add matrices, multiply matrices, write matrices 
+ to a file, read a file in simple matrix form, and read a file in linked list
+ matrix form . All the tasks are in a loop with each subtask having its own
+ loop. If the user inputs any incorrect values or information the program
+ will inform the user. All the menu loops will run until the user inputs the
+ value take cause them to exit the current menu.
+  - Task 1: This will allow you to view either your first matrix, second
+   matrix, or result matrix. It will print it to the screen in simple matrix
+   form.
+  - Task2: This will let you add or multiply the first and second matrices
+   and the result of the calculation will be placed in the result matrix.
+  - Task 3: This will print how sparse either the first, second, or result
+  matrices is. This gives the percentage of zeros in the matrix compared to
+  the number of values.
+  - Task 4: This will return whether the specified matrix is considered a
+  sparse matrix or not. 
+  - Task 5: This allows the user to save or not save the result matrix in 
+  either simple matrix form or linked list matrix form.
+
+public void WriteFile(std::string file_name, MatrixLinkedList* matrix,std::string option)
+- This function will write the result matrix to a given file. It will write
+the contents of the given matrix either as a simple matrix or as a linked
+list style depending on the option. If the option given is not valid the 
+result matrix will not be saved.
+
+void ReadFile(std::string file_name, std::vector<std::vector<int> > * image_data)
+ - this is the ReadFile for mode 1, if the file is in simple matrix form. 
+ 
+ MatrixLinkedList* ReadFile(std::string file_name, MatrixLinkedList* matrix)
+ - this is the ReadFile for mode 2, if the file is in linked list matrix
+ form.  
+
+MatrixLinkedList* MatrixMultiplier(MatrixLinkedList* matrix_a,
+MatrixLinkedList* matrix_b, MatrixLinkedList* result)
+ - This function allow the multiplication of two matrices to occur. 
+
+MatrixLinkedList* MatrixAddition(MatrixLinkedList* matrix_a, MatrixLinkedList* matrix_b, MatrixLinkedList* result)
+- 
+ 
 
 #### MatrixLinkedList  
 - This class creates a linked lists and allows the user to add more nodes to the list or retrieve information regarding the respective matrix.
