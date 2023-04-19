@@ -109,12 +109,13 @@ that the file is in this order, otherwise the program will produce the wrong out
 ---
 ### Running the program 
 To run this program on CLion ensure all your .ccp and .h files are in the CMakeLists.txt. The files should include:  
--[ ] main.cpp  
--[ ] MatrixLinkedList.cpp and .h  
--[ ] MatrixNode.cpp and .h  
+- main.cpp  
+- MatrixLinkedList.cpp and .h  
+- MatrixNode.cpp and .h  
+ 
 Then ensure you have the two matrix files in the folder with your .exe file for the program. Ensure the matrix files are either in simple matrix form or linked list form, both files should be the same form and .txt files. Once these files are in their proper location you can click run>>edit configurations. Once this window opens in your program arguements line put in your first matrix .txt file, then your second matrix .txt file, then the .txt file for the output, and a mode; either 1 for simple matrices or 2 for linked list matrix files. Then click apply>>ok. Once back on the main screen you can press the play button in the toolbar and your program should run properly.
 
-If you are using the terminal, ensure you are in the correct directory with all the correct .cpp and .h files. to execute the program type ```g++ g++ -std=c++11 main.cpp MatrixLinkedList.cpp MatrixNode.cpp -o main``` press enter, then type ```./main <matrix1 file name> <matrix 2 filename> <output filename> <mode for the 1 or 2>``` then press enter. If this is done correctly they program will run.
+If you are using the terminal, ensure you are in the correct directory with all the correct .cpp and .h files. to execute the program type ```g++ -std=c++11 main.cpp MatrixLinkedList.cpp MatrixNode.cpp -o main``` press enter, then type ```./main <matrix1 file name> <matrix 2 filename> <output filename> <mode for the 1 or 2>``` then press enter. If this is done correctly they program will run.
 
 ---
 ### Runtime Instructions:
