@@ -31,10 +31,10 @@ public:
     void push_back(int row, int col, int data);
 
     //returns next row with non-zero entry in col
-    int nextRowInCol(int col, int cur_row);
+    int colEntry(int col, int cur_row);
 
     //returns next col with non-zero entry in row
-    int nextColInRow(int row, int cur_col);
+    int rowEntry(int row, int cur_col);
 
     //Test if the matrix is a sparse matrix of not
     bool isSparse();
