@@ -43,10 +43,10 @@ int main(int argc, char* argv[]) {
             ll_matrix_a = new MatrixLinkedList(*matrix_a);
             ll_matrix_b = new MatrixLinkedList(*matrix_b);
 
-            /** /
+            /**/
             //save to LL data file
-            WriteFile("ll_" + input1_fn, ll_matrix_a);
-            WriteFile("ll_" + input2_fn, ll_matrix_b);
+            WriteFile("ll_" + input1_fn, ll_matrix_a, "2");
+            WriteFile("ll_" + input2_fn, ll_matrix_b, "2");
             //*/
         }
         else if (mode == 2) {

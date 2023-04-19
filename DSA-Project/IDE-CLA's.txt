@@ -1,0 +1,9 @@
+(13x13) & (13x13) mode 2 - multi-works and addition-works
+sergio_ll_matrix1.txt sergio_ll_matrix2.txt result.txt 2
+
+(4x4) & (4x2) mode 2 - multi-works and addition-errors
+ll_matrix_a.txt ll_matrix_b.txt result.txt 2
+
+(18x10) & (18x10) mode 2 - multi-error and addition-works
+ll_matrix_c.txt ll_matrix_d.txt result.txt 2
+
