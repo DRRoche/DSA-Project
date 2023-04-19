@@ -45,8 +45,8 @@ int main(int argc, char* argv[]) {
 
             /**/
             //save to LL data file
-            WriteFile("ll_" + input1_fn, ll_matrix_a, "2");
-            WriteFile("ll_" + input2_fn, ll_matrix_b, "2");
+            WriteFile("cll_" + input1_fn, ll_matrix_a, "2");
+            WriteFile("cll_" + input2_fn, ll_matrix_b, "2");
             //*/
         }
         else if (mode == 2) {
