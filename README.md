@@ -50,10 +50,16 @@ void ReadFile(std::string file_name, std::vector<std::vector<int> > * image_data
 
 MatrixLinkedList* MatrixMultiplier(MatrixLinkedList* matrix_a,
 MatrixLinkedList* matrix_b, MatrixLinkedList* result)
- - This function allow the multiplication of two matrices to occur. 
+ - This function allow will test if the linked lists for the inputted matrices can be multiplied, then it will create a linked list with the number of columns
+ as matrix_a and number of rows as matrix_b. Then the function will  loop for as many rows and columns the resulting matrix has. The most inner loop with loop
+ for the number of columns that matrix_a has and testing if the values in the current position are zero or not. If not zero then the values in matrix_a and matrix_b
+ will be multiplied and added to tmp value. Once the loop for matrix_a is complete tmp will be pushed into the result linked list with the row and column it belongs
+ in.
 
 MatrixLinkedList* MatrixAddition(MatrixLinkedList* matrix_a, MatrixLinkedList* matrix_b, MatrixLinkedList* result)
-- 
+- This function enables the program to add two matrices. This function tests if the two matrices can be added and if they can it will create a result linked list
+with the number of columns and rows it should have. Then it loops through the number of rows and columns and tests if the one of the values from matrix_a and
+matrix_b are non-zero. if it is them the values are added and pushed into the result list with the value respective row and column.
  
 
 #### MatrixLinkedList  
@@ -65,7 +71,7 @@ MatrixLinkedList()
 MatrixLinkedList(int num_rows, int num_cols)
 - A constructor that sets the head pointer to null and the size to 0, but the num_rows and num_cols are set to what was given as parameter values
     
-MatrixLinkedList(std::vector<std::vector<int> > two_dem_vector)
+MatrixLinkedList(std::vector<std::vector<int> > two_dem_vector)  
 -This is a constructor that takes in a vector of vector of integers and loops through the vectors to find if there are any values no equal to zero. If non-zero 
 values are found, a node will be created. If this is the first node, the head point will point to it other wise it will be linked to the last node within the 
 linked list. This loop will run until all values within the vectors are looked at.
