@@ -76,7 +76,7 @@ void MatrixLinkedList::push_back(int row, int col, int data)
 
 }
 
-int MatrixLinkedList::nextRowInCol(int col, int row) {
+int MatrixLinkedList::colEntry(int col, int row) {
     MatrixNode* temp = head;
     int entry = 0;
 
@@ -88,7 +88,7 @@ int MatrixLinkedList::nextRowInCol(int col, int row) {
     return entry;
 }
 
-int MatrixLinkedList::nextColInRow(int row, int col) {
+int MatrixLinkedList::rowEntry(int row, int col) {
     MatrixNode* temp = head;
     int entry = 0;
 

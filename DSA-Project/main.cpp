@@ -256,8 +256,8 @@ void WriteFile(std::string file_name, MatrixLinkedList* matrix,std::string optio
             //loops through matrix columns
             for (int c = 0; c < matrix->getNumCols(); c++) {
                 //if non-zero entry write as new line in file
-                if (matrix->nextColInRow(r, c) != 0) {
-                    out_file << r << " " << c << " " << matrix->nextColInRow(r, c) << "\n";
+                if (matrix->rowEntry(r, c) != 0) {
+                    out_file << r << " " << c << " " << matrix->rowEntry(r, c) << "\n";
 
                 }
             }
@@ -352,8 +352,8 @@ MatrixLinkedList* MatrixMultiplier(MatrixLinkedList* matrix_a, MatrixLinkedList*
                 //the current row and column location in result matrix.
                 for (int k = 0; k < matrix_a->getNumCols(); k++) {
                     //if both entries are non-zeros then they will be multiplied and added to the intermediate value, tmp.
-                    if (matrix_a->nextColInRow(r, k) != 0 && matrix_b->nextRowInCol(c, k) != 0) {
-                        tmp += matrix_a->nextColInRow(r, k) * matrix_b->nextRowInCol(c, k);
+                    if (matrix_a->rowEntry(r, k) != 0 && matrix_b->colEntry(c, k) != 0) {
+                        tmp += matrix_a->rowEntry(r, k) * matrix_b->colEntry(c, k);
 
                     }
                 }
@@ -375,7 +375,7 @@ MatrixLinkedList* MatrixAddition(MatrixLinkedList* matrix_a, MatrixLinkedList* m
     int entry_a;
     int entry_b;
     //Checks if matrices are the correct demensions
-    if (matrix_a->getNumCols() == matrix_b->getNumCols() && matrix_a->getNumCols() == matrix_b->getNumCols()) {
+    if (matrix_a->getNumRows() == matrix_b->getNumRows() && matrix_a->getNumCols() == matrix_b->getNumCols()) {
         //initialize resulting matrix to the correct demensions.
         result = new MatrixLinkedList(matrix_a->getNumRows(), matrix_a->getNumCols());
         //loops through rows of result.
@@ -383,8 +383,8 @@ MatrixLinkedList* MatrixAddition(MatrixLinkedList* matrix_a, MatrixLinkedList* m
             //loops through columns of result.
             for (int c = 0; c < result->getNumCols(); c++) {
                 //stores entries of matrix A & B for comparison.
-                entry_a = matrix_a->nextColInRow(r, c);
-                entry_b = matrix_b->nextColInRow(r, c);
+                entry_a = matrix_a->rowEntry(r, c);
+                entry_b = matrix_b->rowEntry(r, c);
                 //as long as one entry has a non-zero entry and the sum of of both
                 //doesn't equal zero, then add and push total onto result.
                 if ((entry_a != 0 || entry_b != 0) && (entry_a + entry_b != 0) ) {

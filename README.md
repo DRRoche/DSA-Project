@@ -87,8 +87,10 @@ void push_back(int row, int col, int data);
 the new one
 
 int nextRowInCol(int col, int cur_row);
+- This function returns next row with non-zero entry with the column given.
 
 int nextColInRow(int row, int cur_col);
+- This function returns next column with non-zero entry with the row given.
 
 bool isSparse();
 - This functions determines if the repective matrix is considered sparse or not. It calls the isSparsity function and determines if the sparsity is greater then
