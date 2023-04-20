@@ -15,10 +15,10 @@ int calculate_sparcity(MatrixLinkedList* matrix);
 
 int main(int argc, char* argv[]) {
     //load sparse matrices from files
-    if(argc < 4){
+    if(argc < 5){
         std::cout<<"You were missing files";
     }
-    else if(argc > 6){
+    else if(argc > 5){
         std::cout<<"Too many inputs";
     }
     else{
@@ -135,7 +135,7 @@ int main(int argc, char* argv[]) {
                 }
                 run = true;
             }
-            //This choice will check a specified matrices sparsity
+                //This choice will check a specified matrices sparsity
             else if(choice == "3"){
                 choice = "0";
                 while(run) {
@@ -167,7 +167,7 @@ int main(int argc, char* argv[]) {
                 }
                 run = true;
             }
-            //This choice will let the user know if the given matrix is considered sparse or not
+                //This choice will let the user know if the given matrix is considered sparse or not
             else if(choice == "4"){
                 choice = "0";
                 while(run) {
@@ -220,13 +220,17 @@ int main(int argc, char* argv[]) {
                     std::cin >> choice;
                     if (choice == "y") {
                         run = false;
-                        std::cout<<"Would you like the output matrix to be saved:\n";
-                        std::cout<<"1.) Matrix form\n";
-                        std::cout<<"2.) Linked list form\n";
-                        std::cin>>choice;
-                        std::cout << "Saving output matrix to: " << output_fn << std::endl;
-                        WriteFile(output_fn,result,choice);
-
+                        if(result->getSparsity()==-1){
+                            std::cout<<"There is no matrix to save"<<std::endl;
+                        }
+                        else {
+                            std::cout << "Would you like the output matrix to be saved:\n";
+                            std::cout << "1.) Matrix form\n";
+                            std::cout << "2.) Linked list form\n";
+                            std::cin >> choice;
+                            std::cout << "Saving output matrix to: " << output_fn << std::endl;
+                            WriteFile(output_fn, result, choice);
+                        }
                     }
                     else if (choice != "n") {
                         std::cout << "Wrong input: Try again" << std::endl;
