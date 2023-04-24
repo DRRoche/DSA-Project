@@ -27,7 +27,7 @@ public:
     int getNumCols();
     float getSparsity();
 
-    //
+    //Adds new node to linked list
     void push_back(int row, int col, int data);
 
     //returns next row with non-zero entry in col

@@ -5,7 +5,6 @@
 #ifndef DSA_NODE_H
 #define DSA_NODE_H
 
-
 class MatrixNode{
 private:
     int row;
@@ -29,7 +28,6 @@ public:
     void setRow(int row);
     int getCol();
     void setCol(int col);
-
 };
 
 
