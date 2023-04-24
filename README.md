@@ -167,6 +167,8 @@ Then ensure you have the two matrix files in the folder with your .exe file for 
 
 If you are using the terminal, ensure you are in the correct directory with all the correct .cpp and .h files. to execute the program type ```g++ -std=c++11 main.cpp MatrixLinkedList.cpp MatrixNode.cpp -o main``` press enter, then type ```./main <matrix1 file name> <matrix 2 filename> <output filename> <mode for the 1 or 2>``` then press enter. If this is done correctly they program will run.
 
+[Link to all files needed and test files](https://github.com/DRRoche/DSA-Project/tree/main/DSA-Project)
+
 ---
 ### Runtime Instructions:
 
@@ -178,3 +180,8 @@ specify. After a certain function has been carried out, the program
 will print out the menu again, and allow the user to perform additional
 functions. Once the user is done, choosing the final option will close the
 program and the user has the choice to save the results or not, and if the user would like for the results to be saved in simple matrix form or linked list form.
+
+---
+### Additional Reading
+
+[Link to Report](https://docs.google.com/document/d/1DIiMM1Sn9UTJLQYPZOl24NGJ9iJyeGjPY3IAWTqJRFk/edit)
